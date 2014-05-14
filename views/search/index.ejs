@@ -1,0 +1,36 @@
+<% layout( '../layout' ) -%>
+ 
+<h1><%= title %></h1>
+<form action="/search" method="post" accept-charset="utf-8">
+  <input type="text" name="content" />
+</form>
+
+<% if(builds) {%>
+	<table class="zebra">
+    <caption> <%- table_title %> </caption>
+    <thead>
+		<tr>
+			<th>build id</th>
+			<th>pull request</th>
+			<th>repository id</th>
+			<th>Jobs id</th>
+		</tr>
+	</thead>
+    <tbody>
+	<% for(var i in builds) { %>
+		<tr>
+  			<td><%- builds[i].id %></td>
+  			<td><%- builds[i].repository_id %></td>
+  			<td><%- builds[i].pull_request_title %></td>
+  			<td>
+  			<% for(var j in builds[i].job_ids) {%>
+				<a href='job/<%- builds[i].job_ids[j] %>'> <%- builds[i].job_ids[j] %> </a>
+			<% } %>
+			</td>
+		</tr>
+	<% } %>
+    </tbody>
+	</table> 
+<% } else { %>
+	<p>Not Found !</p>
+<% } %>

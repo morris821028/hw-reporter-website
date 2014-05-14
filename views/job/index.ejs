@@ -1,0 +1,8 @@
+<% layout( '../layout' ) -%>
+<form action="/search" method="post" accept-charset="utf-8">
+  <input type="text" name="content" placeholder="Search Repo" />
+</form>
+
+<% if(log_txt) { %>
+	<pre> <%- log_txt %> </pre>
+<% } %>
