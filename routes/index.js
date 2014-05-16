@@ -4,52 +4,19 @@
 var Travis = require('travis-ci');
 var mongoose = require('mongoose');
 var Todo = mongoose.model('Todo');
-/*
-exports.create = function(req, res) {
-	new Todo({
-		content: req.body.content,
-		updated_at: Date.now()
-	}).save(function(err, todo, count) {
-		res.redirect('/');
-	});
-};
 
-exports.destroy = function(req, res) {
-	Todo.findById(req.params.id, function(err, todo) {
-		todo.remove(function(err, todo) {
-			res.redirect('/');
-		});
-	});
-};
-
-exports.update = function ( req, res ){
-  Todo.findById( req.params.id, function ( err, todo ){
-    todo.content    = req.body.content;
-    todo.updated_at = Date.now();
-    todo.save( function ( err, todo, count ){
-      res.redirect( '/' );
-    });
-  });
-};
-
-exports.edit = function ( req, res ){
-  Todo.
-    find().
-    sort( '-updated_at' ).
-    exec( function ( err, todos ){
-      res.render( 'edit', {
-          title   : 'Express Todo Example',
-          todos   : todos,
-          current : req.params.id
-      });
-    });
-};*/
-
-exports.repo = function ( req, res ){
+exports.repoHome = function ( req, res ){
 	res.render('repo/index', {
-		title: req.params.id,
-		id: req.params.id,
-		login: false,
+		title: 'Repo',
+        user: req.user
+	});
+};
+
+exports.repoPage = function ( req, res ){
+	res.render('repo/repo', {
+		title: 'Repo',
+		repoName: req.params.id,
+        user: req.user
 	});
 };
 
@@ -57,15 +24,14 @@ exports.people = function ( req, res ){
 	res.render('people/index', {
 		title: req.params.id,
 		id: req.params.id,
-		login: false,
+        user: req.user
 	});
 };
 
 exports.login = function ( req, res ){
 	res.render('login/login', {
 		title: req.params.id,
-		id: req.params.id,
-		login: false,
+        user: req.user
 	});
 };
 
@@ -78,15 +44,9 @@ exports.create = function ( req, res ){
 };
 
 exports.index = function ( req, res ){
-  Todo.
-    find().
-    sort( '-updated_at' ).
-    exec( function ( err, todos ){
-      res.render( 'index', {
+	res.render( 'index', {
           title : 'Home',
-          login: false,
-          todos : todos
-      });
+          user: req.user
     });
 };
 

@@ -169,6 +169,17 @@ body {
     }
 }
 
+/* announcement */
+
+.announcement-heading {
+  font-size: 50px;
+  margin: 0;
+}
+
+.announcement-text {
+  margin: 0;
+}
+
 /* Buttons */
 
 /* ------------------------------- */

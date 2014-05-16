@@ -1,0 +1,62 @@
+<% layout( '../layout' ) -%>
+
+    <div id="wrapper">
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+
+            <%- partial('../header') %> 
+            <!-- /.navbar-header -->
+            <%- partial('../navbar-top-links') %>
+            <!-- /.navbar-top-links -->
+            <%- partial('../navbar-static-side') %>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header"><%- title %></h1>
+                </div>
+                <!-- /.col-lg-12 -->            
+                <ol class="breadcrumb">
+                    <li><a href="/repo"><i class="icon-dashboard"></i> Dashboard</a></li>
+                    <li class="active"><i class="icon-file-alt"></i> <%= repoName %></li>
+                </ol>
+            </div> 
+
+            <%- partial('state') %> 
+
+            <!-- /.row -->
+            <div class="row">  
+                <!-- /.col-lg-8 -->
+
+                
+                <div class="col-lg-9">
+                    <!-- /.panel -->
+                    <%- partial('../component/chart/area-chart') %>
+                    <!-- /.panel -->
+
+                    <!-- /.panel .chat-panel -->
+                </div>
+                <!-- /.col-lg-4 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Core Scripts - Include with every page -->
+    <script src="/javascripts/jquery-1.10.2.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <!-- Page-Level Plugin Scripts - Dashboard -->
+    <script src="/javascripts/plugins/morris/raphael-2.1.0.min.js"></script>
+    <script src="/javascripts/plugins/morris/morris.js"></script>
+
+    <!-- SB Admin Scripts - Include with every page -->
+    <script src="/javascripts/sb-admin.js"></script>
+
+    <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
+    <script src="/javascripts/demo/dashboard-demo.js"></script>
