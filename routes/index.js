@@ -4,7 +4,7 @@
 var Travis = require('travis-ci');
 var mongoose = require('mongoose');
 var Todo = mongoose.model('Todo');
-
+/*
 exports.create = function(req, res) {
 	new Todo({
 		content: req.body.content,
@@ -43,7 +43,7 @@ exports.edit = function ( req, res ){
           current : req.params.id
       });
     });
-};
+};*/
 
 exports.repo = function ( req, res ){
 	res.render('repo/index', {
@@ -63,6 +63,14 @@ exports.people = function ( req, res ){
 
 exports.login = function ( req, res ){
 	res.render('login/login', {
+		title: req.params.id,
+		id: req.params.id,
+		login: false,
+	});
+};
+
+exports.create = function ( req, res ){
+	res.render('login/create-account', {
 		title: req.params.id,
 		id: req.params.id,
 		login: false,

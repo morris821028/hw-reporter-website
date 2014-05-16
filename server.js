@@ -41,13 +41,14 @@ app.get('/job/:id', routes.job);
 app.get('/repo/:id', routes.repo);
 app.get('/people/:id', routes.people);
 app.get('/login', routes.login);
+app.get('/create', routes.create);
 
 app.get('/users', user.list);
-
+/*
 app.post('/create', routes.create);
 app.get('/destroy/:id', routes.destroy);
 app.get('/edit/:id', routes.edit);
-app.post('/update/:id', routes.update);
+app.post('/update/:id', routes.update);*/
 
 http.createServer(app).listen(app.get('port'), function() {
   console.log("Express server listening on port " + app.get('port'));
