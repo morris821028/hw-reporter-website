@@ -38,8 +38,8 @@ passport.deserializeUser(function(obj, done) {
 // credentials (in this case, an OpenID identifier and profile), and invoke a
 // callback with a user object.
 passport.use(new GoogleStrategy({
-    returnURL: 'http://localhost:8080/auth/google/return',
-    realm: 'http://localhost:8080/'
+    returnURL: 'http://140.115.205.194:8080/auth/google/return',
+    realm: 'http://140.115.205.194:8080/'
   },
   function(identifier, profile, done) {
     // asynchronous verification, for effect...
@@ -131,10 +131,10 @@ app.get('/logout', function(req, res){
 
 app.get('/', routes.index);
 app.get('/index', routes.index);
-app.post('/search', routes.search);
+app.get('/search', routes.search);
 app.get('/job/:id', routes.job);
 app.get('/repo', routes.repoHome);
-app.get('/repo/:id', routes.repoPage);
+app.get('/repo/:owner/:repo', routes.repoPage);
 app.get('/people/:id', routes.people);
 app.get('/login', routes.login);
 app.get('/create', routes.create);

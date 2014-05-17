@@ -2,7 +2,12 @@
     <% if(user) { %>
         <%- partial('login/login-navbar-top-links') %>
     <% } else { %>
-
+    <li>
+        <a href="/login/">
+        <i class="fa fa-user"></i>
+            Sign In
+        </a>
+    </li>
     <% } %>
 </ul>
 <!-- /.navbar-top-links -->

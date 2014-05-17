@@ -1,0 +1,39 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Build History
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Message</th>
+                        <th>Commit</th>
+                        <th>Committer</th>
+                        <th>Duration</th>
+                        <th>Finished</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i in build_table) { %>
+                    <tr>
+                        <td><%= build_table[i].id %></td>
+                        <td><%= build_table[i].pull_request_title %></td>
+                        <td><%= build_table[i].commit_id %></td>
+                        <td><%= build_table[i].commit_id %></td>
+                        <td><%= build_table[i].duration %></td>
+                        <td>
+                            <abbr class="timeago" title="<%= build_table[i].finished_at.toISOString() %>+08:00"><%= build_table[i].finished_at.toISOString() %></abbr>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.table-responsive -->
+    </div>
+    <!-- /.panel-body -->
+</div>
+<!-- /.panel -->
