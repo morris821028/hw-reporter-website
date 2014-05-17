@@ -18,7 +18,13 @@
                 </thead>
                 <tbody>
                     <% for(var i in build_table) { %>
-                    <tr>
+                        <% if (build_table[i].state == 'passed') { %>
+                            <tr class='success'>
+                        <% } else if (build_table[i].state == 'failed') { %>
+                            <tr class='danger'>
+                        <% } else { %>
+                            <tr class='warning'>
+                        <% } %>
                         <td><%= build_table[i].id %></td>
                         <td><%= build_table[i].pull_request_title %></td>
                         <td><%= build_table[i].commit_id %></td>

@@ -44,13 +44,25 @@ exports.repoPage = function(req, res) {
 					build_id: repobuild[i].build_id
 				});
 			}
-			Build.find(or_cond, function(err, builds) {
+			Build.find(or_cond).sort({
+				finished_at: -1
+			}).
+			exec(function(err, builds) {
+				var states = {
+					'passed': 0,
+					'failed': 0,
+					'canceled': 0
+				};
+				for (var i in builds) {
+					states[builds[i].state]++;
+				}
 				res.render('repo/repo', {
 					title: 'Repo',
 					ownerName: req.params.owner,
 					repoName: req.params.repo,
 					user: req.user,
-					build_table: builds
+					build_table: builds,
+					build_state: states
 				});
 			});
 		});
@@ -104,6 +116,11 @@ function updateJob(build) {
 	var jobs = build.job_ids;
 	for (var i in jobs) {
 		var jobid = jobs[i];
+		var buildjob = new BuildJob({
+			build_id: build.id,
+			job_id: jobid
+		});
+		buildjob.save();
 	}
 }
 
