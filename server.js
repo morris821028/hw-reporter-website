@@ -7,6 +7,7 @@ require('./db');
 
 var express = require('express'),
   routes = require('./routes'),
+  api = require('./routes/api'),
   user = require('./routes/user'),
   http = require('http'),
   path = require('path'),
@@ -142,6 +143,8 @@ app.get('/repo/:owner/:repo', routes.repoPage);
 app.get('/people/:id', routes.people);
 app.get('/login', routes.login);
 app.get('/create', routes.create);
+
+app.get('/json/stats/e/:owner/:repo', api.stats);
 
 server.listen(app.get('port'), function() {
   console.log("Express server listening on port " + app.get('port'));
