@@ -1,0 +1,39 @@
+<% layout( '../../layout' ) -%>
+
+    <div id="wrapper">
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+
+            <%- partial('../../header') %> 
+            <!-- /.navbar-header -->
+            <%- partial('../../navbar-top-links') %>
+            <!-- /.navbar-top-links -->
+            <%- partial('../../navbar-static-side') %>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <script>
+        $(function() {
+            $('#timeline-list').html("");
+        });
+    </script>
+    <!-- Core Scripts - Include with every page -->
+    <script src="/javascripts/jquery-1.10.2.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <!-- Page-Level Plugin Scripts - Dashboard -->
+    <script src="/javascripts/plugins/morris/raphael-2.1.0.min.js"></script>
+    <script src="/javascripts/plugins/morris/morris.js"></script>
+
+    <!-- SB Admin Scripts - Include with every page -->
+    <script src="/javascripts/sb-admin.js"></script>
+
+    <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
+    <script src="/javascripts/demo/dashboard-demo.js"></script>

@@ -98,6 +98,13 @@ exports.index = function(req, res) {
 	});
 };
 
+exports.searchRepo = function(req, res) {
+	res.render('repo/search/index', {
+		title: 'Home',
+		user: req.user
+	});
+};
+
 // datebase process
 // var func3 = function(req, res, callback) {
 // 	for (var i in res.builds) {

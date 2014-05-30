@@ -140,11 +140,13 @@ app.get('/search', routes.search);
 app.get('/job/:id', routes.job);
 app.get('/repo', routes.repoHome);
 app.get('/repo/:owner/:repo', routes.repoPage);
+app.get('/srepo', routes.searchRepo);
 app.get('/people/:id', routes.people);
 app.get('/login', routes.login);
 app.get('/create', routes.create);
 
 app.get('/json/stats/e/:owner/:repo', api.stats);
+app.get('/json/timeline/repo', api.repoTimeline);
 
 server.listen(app.get('port'), function() {
   console.log("Express server listening on port " + app.get('port'));

@@ -74,6 +74,12 @@ var BuildJob = new Schema({
 	job_id: Number
 });
 
+var UserTrackRepo = new Schema({
+	user_id: String,
+	owner_name: String,
+	repo_name: String
+});
+
 var UserChat = new Schema({
 	name: String,
 	message: String,
@@ -89,6 +95,7 @@ mongoose.model('Committer', Committer);
 mongoose.model('Commit', Commit);
 mongoose.model('Build', Build);
 mongoose.model('BuildJob', BuildJob);
+mongoose.model('UserTrackRepo', UserTrackRepo);
 mongoose.model('UserChat', UserChat);
 
 var Counter = mongoose.model('Counter');
