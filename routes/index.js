@@ -41,9 +41,10 @@ exports.repoPage = function(req, res) {
 			};
 			for (var i in repobuild) {
 				cond.push({
-					build_id: repobuild[i].build_id
+					id: repobuild[i].build_id
 				});
 			}
+			console.log(or_cond);
 			Build.find(or_cond).sort({
 				finished_at: -1
 			}).
@@ -53,6 +54,7 @@ exports.repoPage = function(req, res) {
 					'failed': 0,
 					'canceled': 0
 				};
+				// console.log(builds);
 				for (var i in builds) {
 					states[builds[i].state]++;
 				}
@@ -133,20 +135,26 @@ function updateJob(build) {
 
 function insertBuild(repo_id, repoupdate, builds) {
 	var date = new Date(repoupdate.updated_at);
-	if (date.getTime() + 1000 * 60 * 60 < Date.now()) { // 1 hours update.
+	if (date.getTime() + 1000 * 60 * 10 < Date.now()) { // 10 minutes update.
 		RepoBuild.remove({ // increase
 			repo_id: repo_id
 		}).exec(function() {
-			var repobuild = new RepoBuild({
+			console.log("save" + new Date());
+			var repoupdate2 = new RepoUpdate({
 				repo_id: repo_id,
-				update_at: Date.now
+				update_at: new Date()
 			});
-			repobuild.save();
+			repoupdate2.save();
 		});
 		for (var i in builds) {
 			var b = builds[i];
-			if (b.finished_at <= date)
+			var dateBuilds = new Date(b.finished_at);
+			if (dateBuilds.getTime() <= date.getTime()) {
+				console.log("duplicate");
 				continue;
+			}
+			console.log(date);
+			console.log(dateBuilds);
 			var elem = new Build({
 				id: b.id,
 				repository_id: b.repository_id,
@@ -163,7 +171,7 @@ function insertBuild(repo_id, repoupdate, builds) {
 			elem.save(function(err, build, numberAffected) {
 				var repobuild = new RepoBuild({
 					repo_id: repo_id,
-					build_id: b.id
+					build_id: build.id
 				});
 				repobuild.save(function() {
 					updateJob(b);
