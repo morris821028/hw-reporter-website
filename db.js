@@ -56,7 +56,7 @@ var Commit = new Schema({
 });
 
 var Build = new Schema({
-	id: {type: Number, unique: true},
+	build_id: {type: Number, unique: true},
 	repository_id: Number,
 	commit_id: Number,
 	number: String,

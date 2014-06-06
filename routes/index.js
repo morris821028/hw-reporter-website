@@ -32,6 +32,7 @@ exports.repoPage = function(req, res) {
 		repo_name: repoName
 	}, function(err, repo) {
 		if (!repo) return;
+		console.log(repo.id);
 		RepoBuild.find({
 			repo_id: repo.id
 		}, function(err, repobuild) {
@@ -39,9 +40,10 @@ exports.repoPage = function(req, res) {
 			var or_cond = {
 				$or: cond
 			};
+			console.log(repobuild);
 			for (var i in repobuild) {
 				cond.push({
-					id: repobuild[i].build_id
+					build_id: repobuild[i].build_id
 				});
 			}
 			console.log(or_cond);
@@ -52,7 +54,8 @@ exports.repoPage = function(req, res) {
 				var states = {
 					'passed': 0,
 					'failed': 0,
-					'canceled': 0
+					'canceled': 0,
+					'created': 0
 				};
 				// console.log(builds);
 				for (var i in builds) {
@@ -149,14 +152,9 @@ function insertBuild(repo_id, repoupdate, builds) {
 		for (var i in builds) {
 			var b = builds[i];
 			var dateBuilds = new Date(b.finished_at);
-			if (dateBuilds.getTime() <= date.getTime()) {
-				console.log("duplicate");
-				continue;
-			}
-			console.log(date);
-			console.log(dateBuilds);
+			console.log(b.id);
 			var elem = new Build({
-				id: b.id,
+				build_id: b.id,
 				repository_id: b.repository_id,
 				commit_id: b.commit_id,
 				number: b.number,
@@ -167,15 +165,17 @@ function insertBuild(repo_id, repoupdate, builds) {
 				started_at: new Date(b.started_at),
 				finished_at: new Date(b.finished_at),
 				duration: b.duration
+			});				
+			var repobuild = new RepoBuild({
+				repo_id: repo_id,
+				build_id: b.id
+			});
+			repobuild.save(function() {
+				updateJob(b);
 			});
 			elem.save(function(err, build, numberAffected) {
-				var repobuild = new RepoBuild({
-					repo_id: repo_id,
-					build_id: build.id
-				});
-				repobuild.save(function() {
-					updateJob(b);
-				});
+				if(err)	return;
+
 			});
 		}
 	}
@@ -241,6 +241,7 @@ function updateBuilds(owner_name, repo_name, builds) {
 				owner_name: owner_name,
 				repo_name: repo_name
 			}, function(err, repo) {
+				console.log(repo);
 				preInsertBuilds(repo.id, builds);
 			});
 		}

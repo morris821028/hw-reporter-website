@@ -25,11 +25,13 @@ exports.stats = function(req, res) {
 			var or_cond = {
 				$or: cond
 			};
+			console.log(repobuild);
 			for (var i in repobuild) {
 				cond.push({
 					build_id: repobuild[i].build_id
 				});
 			}
+			console.log(or_cond);
 			Build.find(or_cond).sort({
 				finished_at: -1
 			}).
@@ -37,6 +39,7 @@ exports.stats = function(req, res) {
 				var dayStatsPassed = {};
 				var dayStatsFailed = {};
 				var dayStatsCancel = {};
+				console.log(builds);
 				for (var i in builds) {
 					var d = new Date(builds[i].finished_at);
 					var dd = d.getDate();
@@ -52,6 +55,8 @@ exports.stats = function(req, res) {
 					} else if (builds[i].state == "failed") {
 						dayStatsFailed[dd]++;
 					} else if (builds[i].state == "canceled") {
+						dayStatsCancel[dd]++;
+					} else {
 						dayStatsCancel[dd]++;
 					}
 				}
